@@ -1,11 +1,11 @@
 from bs4 import BeautifulSoup
 import requests
 from datetime import date, timedelta
-import hashlib
 
 URL = 'https://www.profit.ro/toate'
 provider = 'profit.ro'
-
+response = requests.get(URL)
+soup = BeautifulSoup(response.text, 'html.parser')
 
 def get_date(featured_date):
     # we scrape the first page only for news
@@ -22,7 +22,7 @@ def get_featured_article(provider, soup):
     featured_title = featured_anchor.get('title')
     featured_str_date = featured.find(class_='publish-date').text
     date_added = get_date(featured_str_date)
-    
+
     return {
         'title': featured_title,
         'url': featured_url,
@@ -30,34 +30,35 @@ def get_featured_article(provider, soup):
         'date': date_added,
     }
 
-response = requests.get(URL)
-soup = BeautifulSoup(response.text, 'html.parser')
-scraped_articles = []
-featured_article = get_featured_article(provider, soup)
-scraped_articles.append(featured_article)
+def get_articles(provider, soup):
+    scraped_articles = []
+    featured_article = get_featured_article(provider, soup)
+    scraped_articles.append(featured_article)
+    articles_section = soup.find(class_='articles')
+    articles = articles_section.find_all(class_='col-xs-12 col-sm-8 col-md-9')
+    for article in articles:
+        article_anchor = article.find('a', href=True)
+        article_url = provider + article_anchor['href']
+        article_title = article_anchor.get('title')
+        article_str_date = article.find(class_='publish-date').text
+        article_date = get_date(article_str_date)
 
-articles_section = soup.find(class_='articles')
-articles = articles_section.find_all(class_='col-xs-12 col-sm-8 col-md-9')
-for article in articles:
-    article_anchor = article.find('a', href=True)
-    article_url = provider + article_anchor['href']
-    article_title = article_anchor.get('title')
-    article_str_date = article.find(class_='publish-date').text
-    article_date = get_date(article_str_date)
+        insert_article = {
+            'title': article_title,
+            'url': article_url,
+            'provider': provider,
+            'date': article_date
+        }
 
-    insert_article = {
-        'title': article_title,
-        'url': article_url,
-        'provider': provider,
-        'date': article_date
-    }
+        scraped_articles.append(insert_article)
 
-    scraped_articles.append(insert_article)
+    for article in scraped_articles:
+        for key, value in article.items():
+            print(f"{key}: {value}")
+        print('\n')
+        print('-' * 20)
 
-for article in scraped_articles:
-    for key, value in article.items():
-        print(f"{key}: {value}")
-    print('\n')
-    print('-' * 20)
+    return scraped_articles
+
 
 
