@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+import dateparser
 from datetime import date, timedelta
 
 URL = 'https://www.profit.ro/toate'
@@ -8,11 +9,9 @@ response = requests.get(URL)
 soup = BeautifulSoup(response.text, 'html.parser')
 
 def get_date(featured_date):
-    # we scrape the first page only for news
-    # not expecting any results to be before yesterday
-    date_added = date.today()
-    if 'ieri' in featured_date:
-        date_added = date_added - timedelta(days=1)
+    if 'astăzi' in featured_date:
+        featured_date = 'azi'
+    date_added = dateparser.parse(featured_date)
     return date_added
 
 def get_featured_article(provider, soup):
@@ -60,5 +59,4 @@ def get_articles(provider, soup):
 
     return scraped_articles
 
-
-
+get_articles(provider, soup)
