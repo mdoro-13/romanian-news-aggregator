@@ -1,15 +1,16 @@
-CREATE TABLE Providers (
+CREATE TABLE IF NOT EXISTS Providers (
     Id SERIAL PRIMARY KEY,
-    Name VARCHAR(255) NOT NULL
+    Name VARCHAR(255) NOT NULL UNIQUE
 );
 
-CREATE TABLE Articles (
+CREATE TABLE IF NOT EXISTS Articles (
     Id UUID PRIMARY KEY,
-    Name VARCHAR(255) NOT NULL,
+    Title VARCHAR(255) NOT NULL,
     Date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     article_url VARCHAR(255) NOT NULL,
     picture_url VARCHAR(255) NOT NULL,
-    Provider INT REFERENCES Providers(Id) NOT NULL
+    provider_id INT REFERENCES Providers(Id) NOT NULL,
+    UNIQUE (Title, article_url)
 );
 
 INSERT INTO Providers (Name) VALUES
@@ -17,4 +18,5 @@ INSERT INTO Providers (Name) VALUES
     ('hotnews'),
     ('g4media'),
     ('digi24'),
-    ('mediafax');
+    ('mediafax')
+    ON CONFLICT (Name) DO NOTHING;

@@ -3,7 +3,6 @@ import calendar
 from datetime import datetime, timedelta
 from utils import date_handler
 
-import dateparser
 
 
 class TestGetDate(unittest.TestCase):
