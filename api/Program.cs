@@ -1,20 +1,24 @@
 using Api.Entities;
 using Api.Query;
-using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 app.MapGet("/news", async (ArticleQueryParams queryParams) =>
 {
-
-    //ArticleQueryParams queryParams = new()
-    //{
-    //    Keyword = keyword,
-    //    ProviderIds = providerIDs
-    //};
-
     return await Article.GetArticlesAsync(queryParams);
 });
+
+app.UseCors("AllowAll");
 
 app.Run();

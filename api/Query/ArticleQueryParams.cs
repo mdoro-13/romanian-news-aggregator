@@ -26,6 +26,7 @@ public class ArticleQueryParams
             Keyword = keyword,
             ProviderIds = providerIds
         };
+
         return await ValueTask.FromResult<ArticleQueryParams?>(result);
     }
 }

@@ -11,7 +11,7 @@ public class Article
     public DateTime ScrapeDate { get; set; }
     public string ArticleUrl { get; set; }
     public string PictureUrl { get; set; }
-    public int ProviderId { get; set; }
+    public string Provider { get; set; }
 
     public static async Task<ICollection<Article>> GetArticlesAsync(ArticleQueryParams articleQueryParams)
     {

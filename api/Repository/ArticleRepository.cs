@@ -25,8 +25,9 @@ public class ArticleRepository
             using (var command = new NpgsqlCommand())
             {
                 command.Connection = connection;
-                command.CommandText = "SELECT a.id, a.title, a.date, a.scrape_date, a.article_url, a.picture_url, a.provider_id " +
-                                      "FROM articles a ";
+                command.CommandText = "SELECT a.id, a.title, a.date, a.scrape_date, a.article_url, a.picture_url, p.name as provider_name " +
+                                      "FROM articles a " +
+                                      "JOIN providers p ON a.provider_id = p.id ";
 
                 if (queryParams.ProviderIds is not null && queryParams.ProviderIds.Any())
                 {
@@ -60,7 +61,7 @@ public class ArticleRepository
                             ScrapeDate = reader.GetDateTime(3),
                             ArticleUrl = reader.GetString(4),
                             PictureUrl = reader.GetString(5),
-                            ProviderId = reader.GetInt32(6)
+                            Provider = reader.GetString(6)
                         });
                     }
                 }
