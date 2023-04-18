@@ -13,6 +13,8 @@ class TestGetDate(unittest.TestCase):
             ("18 aprilie 2022", datetime(2022, 4, 18)),
             ("18 dec 2022", datetime(2022, 12, 18)),
             ("18 decembrie, 2022", datetime(2022, 12, 18)),
+            ("18/12/2022", datetime(2022, 12, 18)),
+            ("18 dec, 2022", datetime(2022, 12, 18)),
             ("2019-12-31", datetime(2019, 12, 31)),
             ("31 dec 2019", datetime(2019, 12, 31)),
             ("2023-01-01", datetime(2023, 1, 1)),
@@ -42,7 +44,7 @@ class TestGetDate(unittest.TestCase):
     def test_yesterday(self):
         today = datetime.today()
         yesterday = (today - timedelta(days=1)).date()
-        raw_date = "ieri"
+        raw_date = "ieri, 22:33"
         self.assertEqual(date_handler.get_date(raw_date).date(), yesterday)
 
     def test_invalid_date(self):
