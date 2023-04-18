@@ -1,6 +1,6 @@
 from utils import date_handler, response_handler
 import uuid
-
+from datetime import datetime
 
 URL = 'https://www.profit.ro/toate'
 
@@ -25,6 +25,7 @@ def get_featured_article(provider, parsed_html):
         'article_url': featured_url,
         'provider_id': 1,
         'date': date_added,
+        'scrape_date': datetime.now(),
         'picture_url': image
     }
 
@@ -55,6 +56,7 @@ def get_articles():
             'article_url': article_url,
             'provider_id': 1,
             'date': article_date,
+            'scrape_date': datetime.now(),
             'picture_url': article_image
         }
 
