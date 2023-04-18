@@ -24,9 +24,10 @@ def get_featured_article(provider, parsed_html):
     }
 
 
-def get_articles(provider):
+def get_articles():
     parsed_html = response_handler.parse_response(URL)
-
+    provider = 'profit.ro'
+    
     scraped_articles = []
     featured_article = get_featured_article(provider, parsed_html)
     scraped_articles.append(featured_article)
@@ -46,7 +47,7 @@ def get_articles(provider):
         insert_article = {
             'title': article_title,
             'url': article_url,
-            'provider': provider,
+            'provider': 1,
             'date': article_date,
             'image': article_image
         }
