@@ -1,7 +1,8 @@
 from profit import scraper
 
+
 def main():
-    print("Hello, world!")
+    profit_ro_articles = scraper.get_articles('profit.ro')
 
 
 if __name__ == '__main__':

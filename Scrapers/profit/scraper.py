@@ -1,19 +1,13 @@
-from bs4 import BeautifulSoup
-import requests
-
-from utils import date_handler
+from utils import date_handler, response_handler
 
 URL = 'https://www.profit.ro/toate'
-provider = 'profit.ro'
-response = requests.get(URL)
-soup = BeautifulSoup(response.text, 'html.parser')
-
-def get_image(soup):
-    img = soup.find('img')
+def get_image(parsed_html):
+    img = parsed_html.find('img')
     return img['src']
 
-def get_featured_article(provider, soup):
-    featured = soup.find(class_='feature')
+
+def get_featured_article(provider, parsed_html):
+    featured = parsed_html.find(class_='feature')
     featured_anchor = featured.find('a', href=True)
     featured_url = provider + featured_anchor['href']
     featured_title = featured_anchor.get('title')
@@ -29,11 +23,14 @@ def get_featured_article(provider, soup):
         'image': image
     }
 
-def get_articles(provider, soup):
+
+def get_articles(provider):
+    parsed_html = response_handler.parse_response(URL)
+
     scraped_articles = []
-    featured_article = get_featured_article(provider, soup)
+    featured_article = get_featured_article(provider, parsed_html)
     scraped_articles.append(featured_article)
-    articles_section = soup.find(class_='articles')
+    articles_section = parsed_html.find(class_='articles')
     articles = articles_section.find_all(class_='col-xs-12 col-sm-8 col-md-9')
     images = articles_section.find_all(class_='col-xs-12 col-sm-4 col-md-3')
     count = 0
@@ -57,11 +54,10 @@ def get_articles(provider, soup):
         scraped_articles.append(insert_article)
         count += 1
 
-    # for article in scraped_articles:
-    #     for key, value in article.items():
-    #         print(f"{key}: {value}")
-    #     print('\n')
-    #     print('-' * 20)
+    for article in scraped_articles:
+        for key, value in article.items():
+            print(f"{key}: {value}")
+        print('\n')
+        print('-' * 20)
 
     return scraped_articles
-
