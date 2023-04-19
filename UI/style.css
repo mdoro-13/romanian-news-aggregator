@@ -53,6 +53,9 @@ body {
   font-size: 12px;
 }
 
+.article-box {
+  height: 300px;
+}
 
 @media (max-width: 768px) {
   .article-grid {
