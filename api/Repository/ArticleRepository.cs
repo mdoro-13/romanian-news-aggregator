@@ -81,7 +81,7 @@ public class ArticleRepository
 
         if (validDate)
         {
-            string commandText = queryParams.Direction == ScrollDirection.Down ? "AND a.date < @DatePosted " : "AND a.date > @DatePosted ";
+            string commandText = queryParams.IsScrollDown ? "AND a.date < @DatePosted " : "AND a.date > @DatePosted ";
             command.CommandText += commandText;
             command.Parameters.AddWithValue("DatePosted", date);
         }

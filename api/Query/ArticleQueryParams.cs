@@ -7,7 +7,7 @@ public class ArticleQueryParams
 {
     public ICollection<int> ProviderIds { get; init; }
     public string Keyword { get; init; }
-    public ScrollDirection Direction { get; init; }
+    public bool IsScrollDown { get; init; }
     public string DatePosted { get; init; }
     public int Count { get; init; } = 100;
 
@@ -15,10 +15,10 @@ public class ArticleQueryParams
     {
         string keyword = context.Request.Query["Keyword"];
         string beforeDate = context.Request.Query["DatePosted"];
-        string stringScrollDirection = context.Request.Query["Direction"];
+        string stringScrollCheck = context.Request.Query["IsScrollDown"];
         var providerIdsStringVals = context.Request.Query["providerIds"];
 
-        ScrollDirection scrollDirection = (ScrollDirection)Int32.Parse(stringScrollDirection);
+        bool isScrollDown = bool.Parse(stringScrollCheck);
 
         if (providerIdsStringVals.Count == 0)
         {
@@ -26,7 +26,7 @@ public class ArticleQueryParams
             {
                 Keyword = keyword,
                 DatePosted = beforeDate,
-                Direction = scrollDirection
+                IsScrollDown = isScrollDown
             };
         }
 
@@ -40,7 +40,7 @@ public class ArticleQueryParams
             Keyword = keyword,
             ProviderIds = providerIds,
             DatePosted = beforeDate,
-            Direction = scrollDirection
+            IsScrollDown = isScrollDown
         };
 
         return await ValueTask.FromResult<ArticleQueryParams?>(result);
