@@ -1,8 +1,6 @@
 ﻿using Api.Entities;
 using Api.Query;
 using Npgsql;
-using System.Diagnostics;
-using static Api.Query.ArticleQueryParams;
 
 namespace Api.Repository;
 
@@ -51,7 +49,7 @@ public class ArticleRepository
             FilterByKeyword(queryParams, command);
         }
 
-        FilterByLowerThanDate(queryParams, command);
+        FilterByDate(queryParams, command);
         OrderByDateDescending(command);
         LimitByCount(queryParams, command);
 
@@ -75,7 +73,7 @@ public class ArticleRepository
         command.Parameters.AddWithValue("Keyword", "%" + queryParams.Keyword + "%");
     }
 
-    private static void FilterByLowerThanDate(ArticleQueryParams queryParams, NpgsqlCommand command)
+    private static void FilterByDate(ArticleQueryParams queryParams, NpgsqlCommand command)
     {
         bool validDate = DateTime.TryParse(queryParams.DatePosted, out var date);
 
