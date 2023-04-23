@@ -1,7 +1,9 @@
 using Api.Entities;
 using Api.Query;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+ConfigurationManager config = builder.Configuration;
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
@@ -14,9 +16,11 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+string connectionString = config.GetConnectionString("RomanianNewsAggregatorDb");
+
 app.MapGet("/news", async (ArticleQueryParams queryParams) =>
 {
-    return await Article.GetArticlesAsync(queryParams);
+    return await Article.GetArticlesAsync(queryParams, connectionString);
 });
 
 app.UseCors("AllowAll");

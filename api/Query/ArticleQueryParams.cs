@@ -8,7 +8,7 @@ public class ArticleQueryParams
     public ICollection<int> ProviderIds { get; init; }
     public string Keyword { get; init; }
     public string BeforeDate { get; init; }
-    public int Count { get; init; } = 50;
+    public int Count { get; init; } = 120;
 
     public static async ValueTask<ArticleQueryParams?> BindAsync(HttpContext context, ParameterInfo parameter)
     {

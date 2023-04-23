@@ -13,9 +13,9 @@ public class Article
     public string PictureUrl { get; set; }
     public string Provider { get; set; }
 
-    public static async Task<ICollection<Article>> GetArticlesAsync(ArticleQueryParams articleQueryParams)
+    public static async Task<ICollection<Article>> GetArticlesAsync(ArticleQueryParams articleQueryParams, string connectionString)
     {
-        var repository = new ArticleRepository("Server=localhost;Database=NewsDb;Port=5432;Username=postgres;Password=sqladmin");
+        var repository = new ArticleRepository(connectionString);
         return await repository.GetArticlesAsync(articleQueryParams);
     }
 }
