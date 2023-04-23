@@ -1,4 +1,5 @@
 import { fetchArticles } from './http-calls.js';
+import { getProviderClass } from './utils.js';
 
 let articles = [];
 let lastArticleDate = null;
@@ -11,15 +12,16 @@ const truncateTitle = (title) => {
 const createArticleElement = (article) => {
   const articleUrl = `//${article.articleUrl}`;
   const row = document.createElement('div');
+  const providerClass = getProviderClass(article)
   row.classList.add('grid-item');
   row.innerHTML = `
     <div class="article-box">
-      <div><img class="article-img" src="${article.pictureUrl}" alt="Article image"></div>
+      <div><img class="article-img" src="${article.pictureUrl}" alt="Image not found" onerror="this.src='./assets/white.png';"></div>
       <div><a href="${articleUrl}" target="_blank">${truncateTitle(article.title)}</a></div>
     </div>
     <div class="info-box">
       <div class="date-posted">${new Date(article.date).toLocaleDateString('ro-RO', { day: 'numeric', month: 'long', year: 'numeric' })}</div>
-      <div class="provider">${article.provider}</div>
+      <div class="provider ${providerClass}">${article.provider}</div>
     </div>
   `;
   return row;
@@ -35,8 +37,6 @@ const loadArticles = async () => {
     if (newArticles.length > 0) {
       articles = newArticles;
       lastArticleDate = articles[newArticles.length - 1].date;
-      console.log(articles)
-      console.log(lastArticleDate)
       const articleElements = newArticles.map(article => createArticleElement(article));
       articleElements.forEach(articleElement => {
         articleGrid.appendChild(articleElement);
@@ -54,7 +54,6 @@ const handleScroll = () => {
   if (scrollPosition > triggerAt) {
     loadArticles();
   }
-
 };
 
 const articleGrid = document.querySelector('.article-grid');

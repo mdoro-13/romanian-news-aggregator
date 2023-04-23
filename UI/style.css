@@ -39,12 +39,35 @@ body {
 
 .provider {
   display: inline-block;
-  background-color: #6188f4;
-  color: #FFFFFF;
   padding: 4px 10px;
   border-radius: 10px;
   margin-top: 10px;
   font-size: 12px;
+}
+
+.profit-ro {
+  background-color: #000041;
+  color: #FFFFFF;
+}
+
+.hotnews {
+  background-color: #2145ac;
+  color: #FFFFFF;
+}
+
+.digi24 {
+  background-color: #783efc;
+  color: #FFFFFF;
+}
+
+.g4media {
+  background-color: #3464b9;
+  color: #FFFFFF;
+}
+
+.mediafax {
+  background-color: #ff1e00;
+  color: #FFFFFF;
 }
 
 .date-posted {
