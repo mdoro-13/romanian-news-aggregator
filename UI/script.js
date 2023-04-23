@@ -4,6 +4,7 @@ import { getProviderClass } from './utils.js';
 let articles = [];
 let lastArticleDate = null;
 let stopScroll = false;
+let keyword = '';
 
 const truncateTitle = (title) => {
   return title.length > 90 ? title.slice(0, 90) + '...' : title;
@@ -28,12 +29,11 @@ const createArticleElement = (article) => {
 };
 
 const loadArticles = async () => {
-
   if (!stopScroll) {
     let newArticles = [];
     // Load next page
     const datePosted = lastArticleDate;
-    newArticles = await fetchArticles({ datePosted });
+    newArticles = await fetchArticles({ datePosted, keyword });
     if (newArticles.length > 0) {
       articles = newArticles;
       lastArticleDate = articles[newArticles.length - 1].date;
@@ -56,7 +56,25 @@ const handleScroll = () => {
   }
 };
 
+function addSearchByKeyword() {
+  let timeoutId;
+  const inputElement = document.querySelector('.search-bar');
+  inputElement.addEventListener('input', (event) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      keyword = event.target.value;
+      console.log(keyword)
+      lastArticleDate = null;
+      stopScroll = false;
+      articleGrid.innerHTML = ''
+      loadArticles();
+    }, 500); 
+  });
+}
+
+
 const articleGrid = document.querySelector('.article-grid');
 window.addEventListener('scroll', handleScroll);
 loadArticles();
+addSearchByKeyword()
 
