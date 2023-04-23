@@ -2,7 +2,7 @@ from utils import date_handler, response_handler
 import uuid
 from datetime import datetime
 
-URL = 'https://www.profit.ro/toate'
+URL = 'https://www.profit.ro/toate?p=21'
 
 
 def get_image(parsed_html):

@@ -49,7 +49,7 @@ public class ArticleRepository
             FilterByKeyword(queryParams, command);
         }
 
-        FilterByDate(queryParams, command);
+        FilterBeforeDate(queryParams, command);
         OrderByDateDescending(command);
         LimitByCount(queryParams, command);
 
@@ -73,13 +73,13 @@ public class ArticleRepository
         command.Parameters.AddWithValue("Keyword", "%" + queryParams.Keyword + "%");
     }
 
-    private static void FilterByDate(ArticleQueryParams queryParams, NpgsqlCommand command)
+    private static void FilterBeforeDate(ArticleQueryParams queryParams, NpgsqlCommand command)
     {
-        bool validDate = DateTime.TryParse(queryParams.DatePosted, out var date);
+        bool validDate = DateTime.TryParse(queryParams.BeforeDate, out var date);
 
         if (validDate)
         {
-            string commandText = queryParams.IsScrollDown ? "AND a.date < @DatePosted " : "AND a.date > @DatePosted ";
+            string commandText = "AND a.date < @DatePosted ";
             command.CommandText += commandText;
             command.Parameters.AddWithValue("DatePosted", date);
         }

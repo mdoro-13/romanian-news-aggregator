@@ -7,27 +7,21 @@ public class ArticleQueryParams
 {
     public ICollection<int> ProviderIds { get; init; }
     public string Keyword { get; init; }
-    public bool IsScrollDown { get; init; } = true;
-    public string DatePosted { get; init; }
-    public int Count { get; init; } = 100;
+    public string BeforeDate { get; init; }
+    public int Count { get; init; } = 50;
 
     public static async ValueTask<ArticleQueryParams?> BindAsync(HttpContext context, ParameterInfo parameter)
     {
         string keyword = context.Request.Query["Keyword"];
-        string beforeDate = context.Request.Query["DatePosted"];
-        string isScrollDownString = context.Request.Query["IsScrollDown"];
+        string datePosted = context.Request.Query["BeforeDate"];
         var providerIdsStringVals = context.Request.Query["providerIds"];
-
-        bool isScrollValid = bool.TryParse(isScrollDownString, out bool parsedIsScrollDown);
-        bool isScrollDownResult = isScrollValid ? parsedIsScrollDown : true;
 
         if (providerIdsStringVals.Count == 0)
         {
             return new ArticleQueryParams
             {
                 Keyword = keyword,
-                DatePosted = beforeDate,
-                IsScrollDown = isScrollDownResult
+                BeforeDate = datePosted,
             };
         }
 
@@ -40,16 +34,9 @@ public class ArticleQueryParams
         {
             Keyword = keyword,
             ProviderIds = providerIds,
-            DatePosted = beforeDate,
-            IsScrollDown = isScrollDownResult
+            BeforeDate = datePosted,
         };
 
         return await ValueTask.FromResult<ArticleQueryParams?>(result);
-    }
-
-    public enum ScrollDirection
-    {
-        Down = 0,
-        Up = 1,
     }
 }
