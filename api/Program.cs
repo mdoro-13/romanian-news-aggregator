@@ -16,7 +16,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-string connectionString = config.GetConnectionString("RomanianNewsAggregatorDb");
+string connectionString = config["ROMANIAN_NEWS_AGGREGATOR_CONNECTION_STRING"];
 
 app.MapGet("/news", async (ArticleQueryParams queryParams) =>
 {
