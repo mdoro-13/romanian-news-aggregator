@@ -1,34 +1,8 @@
-from utils import date_handler, response_handler
+from utils import date_handler, response_handler, image_handler
 import uuid
 from datetime import datetime
 
-URL = 'https://www.profit.ro/toate?p=21'
-
-
-def get_image(parsed_html):
-    img = parsed_html.find('img')
-    return img['src']
-
-
-def get_featured_article(provider, parsed_html):
-    featured = parsed_html.find(class_='feature')
-    featured_anchor = featured.find('a', href=True)
-    featured_url = provider + featured_anchor['href']
-    featured_title = featured_anchor.get('title')
-    featured_str_date = featured.find(class_='publish-date').text
-    date_added = date_handler.get_date(featured_str_date)
-    image = get_image(featured)
-
-    return {
-        'id': str(uuid.uuid4()),
-        'title': featured_title,
-        'article_url': featured_url,
-        'provider_id': 1,
-        'date': date_added,
-        'scrape_date': datetime.now(),
-        'picture_url': image
-    }
-
+URL = 'https://www.profit.ro/toate'
 
 def get_articles():
     parsed_html = response_handler.parse_response(URL)
@@ -48,7 +22,7 @@ def get_articles():
         article_title = article_anchor.get('title')
         article_str_date = article.find(class_='publish-date').text
         article_date = date_handler.get_date(article_str_date)
-        article_image = get_image(images[count])
+        article_image = image_handler.get_image(images[count])
 
         insert_article = {
             'id': str(uuid.uuid4()),
@@ -64,3 +38,22 @@ def get_articles():
         count += 1
 
     return scraped_articles
+
+def get_featured_article(provider, parsed_html):
+    featured = parsed_html.find(class_='feature')
+    featured_anchor = featured.find('a', href=True)
+    featured_url = provider + featured_anchor['href']
+    featured_title = featured_anchor.get('title')
+    featured_str_date = featured.find(class_='publish-date').text
+    date_added = date_handler.get_date(featured_str_date)
+    image = image_handler.get_image(featured)
+
+    return {
+        'id': str(uuid.uuid4()),
+        'title': featured_title,
+        'article_url': featured_url,
+        'provider_id': 1,
+        'date': date_added,
+        'scrape_date': datetime.now(),
+        'picture_url': image
+    }
