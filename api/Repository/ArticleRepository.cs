@@ -69,7 +69,7 @@ public class ArticleRepository
     private static void FilterByKeyword(ArticleQueryParams queryParams, NpgsqlCommand command)
     {
         command.CommandText += queryParams.ProviderIds is not null && queryParams.ProviderIds.Any() ? "AND " : "WHERE ";
-        command.CommandText += "a.title LIKE @Keyword ";
+        command.CommandText += "a.title ILIKE @Keyword ";
         command.Parameters.AddWithValue("Keyword", "%" + queryParams.Keyword + "%");
     }
 
