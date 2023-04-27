@@ -1,8 +1,8 @@
 import unittest
 import calendar
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from utils import date_handler
-
+from dateutil.relativedelta import relativedelta, MO
 
 
 class TestGetDate(unittest.TestCase):
@@ -52,3 +52,6 @@ class TestGetDate(unittest.TestCase):
     def test_invalid_date(self):
         raw_date = "foobar"
         self.assertIsNone(date_handler.get_date(raw_date))
+
+    def test_parse_last_monday(self):
+        self.assertEqual(date_handler.get_date('Luni').date(), date.today() + relativedelta(weekday=MO(-1)))
