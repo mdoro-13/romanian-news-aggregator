@@ -1,6 +1,9 @@
-from utils import date_handler, response_handler, image_handler
+from utils import response_handler, image_handler
 import uuid
 from datetime import datetime, timedelta
+from utils.date_handler import get_date
+from utils.sanitize import strip_url
+
 
 URL = 'https://www.g4media.ro/'
 
@@ -30,12 +33,12 @@ def get_article_grid(parsed_html):
         ## TODO
         ## g4media always stores their dates as '1 mai 2023' for example which will be parsed to 00:00 + timestamp
         ## will need to generate some hours so that they won't always be at the bottom
-        date = date_handler.get_date(str_date)
+        date = get_date(str_date)
 
         extracted_article = {
             'id': str(uuid.uuid4()),
             'title': article_title,
-            'article_url': article_url,
+            'article_url': strip_url(article_url),
             'provider_id': 5,
             'date': date,
             'scrape_date': datetime.now(),

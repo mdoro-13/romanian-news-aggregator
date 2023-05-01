@@ -1,4 +1,5 @@
-from utils import response_handler, date_handler
+from utils.date_handler import get_date
+from utils import response_handler
 import uuid
 from datetime import datetime
 
@@ -29,7 +30,7 @@ def get_article_grid(parsed_html):
             'title': article_title,
             'article_url': article_url,
             'provider_id': 3,
-            'date': date_handler.get_date(date),
+            'date': get_date(date),
             'scrape_date': datetime.now(),
             'picture_url': img_url
         }

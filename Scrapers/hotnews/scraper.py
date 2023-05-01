@@ -1,6 +1,10 @@
-from utils import date_handler, response_handler, image_handler
+from utils import response_handler, image_handler
 import uuid
 from datetime import datetime
+from utils.sanitize import strip_url
+from utils.date_handler import get_date
+
+
 
 URL = 'https://www.hotnews.ro/'
 
@@ -78,8 +82,7 @@ def get_date_section(parent_section):
 
 def parse_date(date_section):
     raw_date = date_section.contents[0].strip().split(' ')[0]
-    return date_handler.get_date(raw_date)
+    return get_date(raw_date)
 
 
-def strip_url(url):
-    return url.split("://")[1]
+

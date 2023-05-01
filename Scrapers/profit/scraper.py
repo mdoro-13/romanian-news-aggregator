@@ -1,4 +1,5 @@
-from utils import date_handler, response_handler, image_handler
+from utils.date_handler import get_date
+from utils import response_handler, image_handler
 import uuid
 from datetime import datetime
 
@@ -21,7 +22,7 @@ def get_articles():
         article_url = provider + article_anchor['href']
         article_title = article_anchor.get('title')
         article_str_date = article.find(class_='publish-date').text
-        article_date = date_handler.get_date(article_str_date)
+        article_date = get_date(article_str_date)
         article_image = image_handler.get_image(images[count])
 
         insert_article = {
@@ -45,7 +46,7 @@ def get_featured_article(provider, parsed_html):
     featured_url = provider + featured_anchor['href']
     featured_title = featured_anchor.get('title')
     featured_str_date = featured.find(class_='publish-date').text
-    date_added = date_handler.get_date(featured_str_date)
+    date_added = get_date(featured_str_date)
     image = image_handler.get_image(featured)
 
     return {
