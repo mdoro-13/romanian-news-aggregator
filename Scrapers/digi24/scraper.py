@@ -22,7 +22,11 @@ def get_article_grid(parsed_html):
     grid_articles = grid.find_all('article', class_='article brdr')
     extracted_articles = []
 
+    ## the grid is long, take only the first 10
+    count = 0
     for article in grid_articles:
+        if count == 10:
+            break
         article_title = article.find(class_='article-title').text.strip()
         article_url = 'digi24.ro' + article.find("a")["href"]
         img_url = article.find("img")["src"]
@@ -39,6 +43,7 @@ def get_article_grid(parsed_html):
         }
 
         extracted_articles.append(extracted_article)
+        count += 1
 
     return extracted_articles
 
