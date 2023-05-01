@@ -1,7 +1,9 @@
+import logging
 import requests
 import urllib.parse
 from bs4 import BeautifulSoup
 
+logging.basicConfig(level=logging.ERROR)
 
 def parse_response(url):
     try:
@@ -18,6 +20,8 @@ def parse_response(url):
             return soup
 
     except requests.exceptions.RequestException as e:
-        raise RuntimeError(f"Error making request: {e}") from e
+        logging.error(f"Error making request: {e}")
+        return None
     except ValueError as e:
-        raise ValueError(str(e)) from e
+        logging.error(str(e))
+        return None
