@@ -1,2 +1,3 @@
 #!/bin/bash
-/usr/local/bin/python3.9 /app/main.py 
+/usr/local/bin/python3.9 /app/main.py >> /app/out.log
+

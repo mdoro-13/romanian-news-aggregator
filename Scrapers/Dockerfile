@@ -17,15 +17,12 @@ COPY . .
 
 RUN pip install --no-cache-dir --user -r requirements.txt
 
-# Copy the bash script to the container
 COPY run_scrapers.sh /app/run_scrapers.sh
 RUN chmod +x /app/run_scrapers.sh
 
-# Copy the crontab file to the container
 COPY crontab /etc/cron.d/crontab
 RUN chmod 0644 /etc/cron.d/crontab
 
-# Set up the log file and start cron in the foreground
 RUN touch /tmp/cron.log && \
     chmod 0644 /tmp/cron.log && \
     chown root:root /tmp/cron.log && \
