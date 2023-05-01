@@ -4,6 +4,7 @@ from db_operations import commands
 
 
 def main():
+    print ('Fetching articles...')
     profit_ro_articles = profit_ro_scraper.get_articles()
     hotnews_articles = hotnews_scraper.get_articles()
 
