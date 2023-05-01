@@ -47,7 +47,7 @@ def get_single_article(parsed_html, class_name):
 
 def get_articles_from_main_grid(parsed_html):
     main_grid = parsed_html.find(class_='grid-2x3x1')
-    articles = main_grid.find_all("article", class_="art")
+    articles = main_grid.find_all('article', class_='art')
 
     extracted_articles = []
     for article in articles:
