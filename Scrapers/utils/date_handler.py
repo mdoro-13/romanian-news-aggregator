@@ -27,9 +27,7 @@ def get_date(raw_date):
 
     if date_added is None:
         return None
-    # Add a unique microseconds value to the datetime object
-    microseconds = len(str(date_added.microsecond))
-    unique_microseconds = int(str(date_added.microsecond) + '0'*(6-microseconds))
-    unique_date_added = date_added.replace(microsecond=unique_microseconds)
-    return unique_date_added
+    timestamp = datetime.datetime.utcnow().strftime('%Y%m%d%H%M%S%f')
+    unique_date_added_with_timestamp = date_added.strftime('%Y-%m-%d %H:%M:%S.') + timestamp
+    return unique_date_added_with_timestamp
 
