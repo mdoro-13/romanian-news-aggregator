@@ -10,7 +10,6 @@ URL = 'https://stirileprotv.ro/ultimele-stiri/'
 
 def get_articles():
     parsed_html = response_handler.parse_response(URL)
-    provider = 'protv'
 
     article_div = parsed_html.find('div', class_='content')
     articles= article_div.find_all('article', class_='grid')
@@ -36,7 +35,7 @@ def get_articles():
             'scrape_date': datetime.now(),
             'picture_url': img_url
         }
-        
+
         scraped_articles.append(extracted_article)
 
     return scraped_articles
