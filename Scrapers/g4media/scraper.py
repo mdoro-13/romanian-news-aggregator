@@ -39,7 +39,7 @@ def get_article_grid(parsed_html):
             'id': str(uuid.uuid4()),
             'title': article_title,
             'article_url': strip_url(article_url),
-            'provider_id': 5,
+            'provider_id': 4,
             'date': date,
             'scrape_date': datetime.now(),
             'picture_url': img_url
