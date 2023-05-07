@@ -3,7 +3,7 @@ import uuid
 from datetime import datetime
 from utils.sanitize import strip_url
 from utils.date_handler import get_date
-from utils.fetch_below import limit
+from utils.fetch_below import scrape_limit
 
 
 
@@ -23,7 +23,7 @@ def get_latest_articles(parsed_html):
 
     count = 0
     for article in articles:
-        if (count == limit):
+        if (count == scrape_limit):
             break
         article_title = article.find('h1', class_='title').text.strip()
         article_url = article['href']

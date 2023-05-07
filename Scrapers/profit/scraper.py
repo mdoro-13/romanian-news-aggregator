@@ -2,6 +2,8 @@ from utils.date_handler import get_date
 from utils import response_handler, image_handler
 import uuid
 from datetime import datetime
+from utils.fetch_below import scrape_limit
+
 
 URL = 'https://www.profit.ro/toate'
 
@@ -18,6 +20,9 @@ def get_articles():
     count = 0
 
     for article in articles:
+        if (count == scrape_limit - 1):
+            break
+
         article_anchor = article.find('a', href=True)
         article_url = provider + article_anchor['href']
         article_title = article_anchor.get('title')

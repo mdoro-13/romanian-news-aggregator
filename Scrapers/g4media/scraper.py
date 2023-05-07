@@ -3,7 +3,7 @@ import uuid
 from datetime import datetime, timedelta
 from utils.date_handler import get_date
 from utils.sanitize import strip_url
-from utils.fetch_below import limit
+from utils.fetch_below import scrape_limit
 
 
 URL = 'https://www.g4media.ro/'
@@ -20,7 +20,7 @@ def get_article_grid(parsed_html):
 
     count = 0
     for article in grid_articles:
-        if count == limit:
+        if count == scrape_limit:
             break
         article_title = article.find(class_='post-title').text.strip()
         article_url = article.find('a')['href']

@@ -2,6 +2,8 @@ from utils.date_handler import get_date
 from utils import response_handler
 import uuid
 from datetime import datetime
+from utils.fetch_below import scrape_limit
+
 
 URL = 'https://www.digi24.ro/ultimele-stiri'
 
@@ -18,7 +20,7 @@ def get_article_grid(parsed_html):
     ## the grid is long, take only the first 10
     count = 0
     for article in grid_articles:
-        if count == 10:
+        if count == scrape_limit:
             break
         article_title = article.find(class_='article-title').text.strip()
         article_url = 'digi24.ro' + article.find("a")["href"]
