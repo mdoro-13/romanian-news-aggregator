@@ -37,11 +37,6 @@ def get_articles():
             'picture_url': img_url
         }
 
-        print(extracted_article['title'])
-        print(extracted_article['article_url'])
-        print(extracted_article['date'])
-        print(extracted_article['picture_url'])
-        print('*' * 10)
         scraped_articles.append(extracted_article)
         count+=1
 
@@ -54,7 +49,6 @@ def get_str_date(article):
     
     time_or_date_section = article.find('span', class_='time-or-date')
     if time_or_date_section is not None:
-        print ('RETURN  time_or_date_section')
         return time_or_date_section.text
 
     now_utc = datetime.utcnow()
