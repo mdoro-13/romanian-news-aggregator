@@ -66,6 +66,7 @@ function addSearchByKeyword() {
       console.log(keyword)
       lastArticleDate = null;
       stopScroll = false;
+      articles = []
       articleGrid.innerHTML = ''
       loadArticles();
     }, 500); 
