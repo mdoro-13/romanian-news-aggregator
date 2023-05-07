@@ -1,3 +1,4 @@
+from utils.image_handler import get_image
 from utils.date_handler import get_date
 from utils import response_handler, image_handler
 import uuid
@@ -28,7 +29,7 @@ def get_articles():
         article_title = article_anchor.get('title')
         article_str_date = article.find(class_='publish-date').text
         article_date = get_date(article_str_date)
-        article_image = image_handler.get_image(images[count])
+        article_image = get_image(images[count])
 
         insert_article = {
             'id': str(uuid.uuid4()),
