@@ -11,14 +11,6 @@ def main():
     hotnews_articles = hotnews_scraper.get_articles()
     digi24_articles = digi24_scraper.get_articles()
     g4media_articles = g4media_scraper.get_articles()
-    # agerpres_articles = agerpres_scraper.get_articles()
-
-    for article in g4media_articles:
-        print(article['title'])
-        print(article['article_url'])
-        print(article['picture_url'])
-        print(article['date'])
-        print('-'*100)
 
     all_articles = profit_ro_articles + hotnews_articles + digi24_articles + g4media_articles
 
