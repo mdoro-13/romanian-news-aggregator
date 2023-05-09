@@ -1,3 +1,4 @@
+from utils.image_handler import get_image
 from utils import response_handler, image_handler
 import uuid
 from datetime import datetime, timedelta
@@ -27,7 +28,7 @@ def get_article_grid(parsed_html):
         img_src_all = article.find_all('img')
         img_url = ''
         if len(img_src_all) >=1:
-            img_url = img_src_all[1]['src']
+            img_url = get_image(img_src_all[1])
         str_date = article.find(class_='entry-date').text.strip()
 
         ## TODO

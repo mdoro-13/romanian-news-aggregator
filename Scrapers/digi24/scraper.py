@@ -1,3 +1,4 @@
+from utils.image_handler import get_image
 from utils.date_handler import get_date
 from utils import response_handler
 import uuid
@@ -24,7 +25,7 @@ def get_article_grid(parsed_html):
             break
         article_title = article.find(class_='article-title').text.strip()
         article_url = 'digi24.ro' + article.find("a")["href"]
-        img_url = article.find("img")["src"]
+        img_url = get_image(article)
         date = article.find('time')['datetime']
 
         extracted_article = {

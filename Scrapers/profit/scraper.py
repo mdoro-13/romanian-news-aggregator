@@ -53,7 +53,7 @@ def get_featured_article(provider, parsed_html):
     featured_title = featured_anchor.get('title')
     featured_str_date = featured.find(class_='publish-date').text
     date_added = get_date(featured_str_date)
-    image = image_handler.get_image(featured)
+    image = get_image(featured)
 
     return {
         'id': str(uuid.uuid4()),

@@ -1,5 +1,7 @@
 from datetime import datetime
 import uuid
+
+from utils.image_handler import get_image
 from utils.date_handler import get_date
 from utils import response_handler
 from utils.fetch_below import scrape_limit
@@ -22,7 +24,7 @@ def get_articles():
 
         article_title = article.find(class_='article-lead').text.strip()
         article_url = article.find('a')['href']
-        img_url = article.find('img')['data-src']
+        img_url = get_image(article, 'data-src')
         article_str_date = article.find('div', class_='article-date').text
         date = get_date(article_str_date)
 
