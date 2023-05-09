@@ -12,6 +12,7 @@ export async function fetchArticles(queryConfig) {
 }
 
 function getEndpoint() {
+  let apiURL;
   if (window.location.host.includes('127.0.0.1')) {
     apiURL = 'http://localhost:5998'
   }
