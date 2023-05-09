@@ -47,7 +47,7 @@ def get_str_date(article):
     if time_section is not None:
         return time_section['datetime']
     
-    time_or_date_section = article.find('span', class_='time-or-date')
+    time_or_date_section = article.find('span', class_='time-or-date__item time-or-date__item--time')
     if time_or_date_section is not None:
         return time_or_date_section.text
 

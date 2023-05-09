@@ -6,6 +6,11 @@ from protv import scraper as protv_scraper
 from libertatea import scraper as liberatatea_scraper
 from db_operations import commands
 
+def ensure_unqiue(all_articles):
+    unique_urls = {item['article_url'] for item in all_articles}
+
+    return [item for item in all_articles if item['article_url'] in unique_urls]
+
 
 def main():
     profit_ro_articles = profit_ro_scraper.get_articles()
@@ -16,6 +21,7 @@ def main():
     libertatea_articles = liberatatea_scraper.get_articles()
 
     all_articles = profit_ro_articles + hotnews_articles + digi24_articles + g4media_articles + protv_articles + libertatea_articles
+    all_articles = ensure_unqiue(all_articles)
 
     for article in all_articles:
         if len(article['title']) > 255:
@@ -26,3 +32,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
