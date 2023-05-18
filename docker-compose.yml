@@ -13,7 +13,7 @@ services:
     volumes:
       - ./Scripts/create_db.sql:/docker-entrypoint-initdb.d/init.sql
 
-  aspnet:
+  api:
     container_name: api
     build:
       context: ./api
@@ -25,7 +25,7 @@ services:
     depends_on:
       - db
 
-  python:
+  scrapers:
     container_name: scrapers
     build:
       context: ./Scrapers
