@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using static Api.Query.ArticleQueryParams;
 
 namespace Api.Query;
 

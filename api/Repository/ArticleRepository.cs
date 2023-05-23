@@ -66,6 +66,7 @@ public class ArticleRepository
             command.Parameters.AddWithValue("ProviderId" + i, queryParams.ProviderIds.ElementAt(i));
         }
     }
+
     private static void FilterByKeyword(ArticleQueryParams queryParams, NpgsqlCommand command)
     {
         command.CommandText += queryParams.ProviderIds is not null && queryParams.ProviderIds.Any() ? "AND " : "WHERE ";
@@ -84,10 +85,12 @@ public class ArticleRepository
             command.Parameters.AddWithValue("DatePosted", date);
         }
     }
+
     private static void OrderByDateDescending(NpgsqlCommand command)
     {
         command.CommandText += "ORDER BY a.date DESC ";
     }
+
     private static void LimitByCount(ArticleQueryParams queryParams, NpgsqlCommand command)
     {
         command.CommandText += "LIMIT @Count ";
