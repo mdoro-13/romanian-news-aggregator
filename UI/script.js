@@ -1,13 +1,14 @@
 import { fetchArticles } from './http-calls.js';
 import { getProviderClass } from './utils.js';
 
+const truncateTitleBy = 65;
 let articles = [];
 let lastArticleDate = null;
 let stopScroll = false;
 let keyword = '';
 
 const truncateTitle = (title) => {
-  return title.length > 90 ? title.slice(0, 90) + '...' : title;
+  return title.length > truncateTitleBy ? title.slice(0, truncateTitleBy) + '...' : title;
 };
 
 const createArticleElement = (article) => {
