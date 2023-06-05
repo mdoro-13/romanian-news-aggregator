@@ -29,6 +29,10 @@ def get_latest_articles(parsed_html):
         article_url = article['href']
         img_url = ''
         date_section = get_date_section(article)
+     
+        ## Sponsored articles do not have a date
+        if date_section is None:
+            continue
         date = parse_date(date_section)
 
         extracted_article = {
