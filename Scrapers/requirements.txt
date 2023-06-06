@@ -2,3 +2,4 @@ requests
 bs4
 dateparser
 psycopg2
+selenium

@@ -25,10 +25,14 @@ def get_article_grid(parsed_html):
             break
         article_title = article.find(class_='post-title').text.strip()
         article_url = article.find('a')['href']
-        img_src_all = article.find_all('img')
+        post_img = article.find(class_='post-img')
+        all_img = post_img.find_all('img')
         img_url = ''
-        if len(img_src_all) >=1:
-            img_url = get_image(img_src_all[1])
+        for img in all_img:
+            src = img['src']
+            if 'cdn.g4media' in src:
+                img_url = src
+                break
         str_date = article.find(class_='entry-date').text.strip()
 
         ## TODO
