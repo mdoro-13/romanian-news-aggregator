@@ -25,8 +25,6 @@ def get_date(raw_date):
                 unique_datetime = last_weekday_datetime.replace(microsecond=unique_microseconds)
                 return unique_datetime
 
-    if date_added is None:
-        return None
     timestamp = datetime.datetime.utcnow().strftime('%Y%m%d%H%M%S%f')
     unique_date_added_with_timestamp = date_added.strftime('%Y-%m-%d %H:%M:%S.') + timestamp
     return unique_date_added_with_timestamp

@@ -33,12 +33,7 @@ def get_article_grid(parsed_html):
             if 'cdn.g4media' in src:
                 img_url = src
                 break
-        str_date = article.find(class_='entry-date').text.strip()
-
-        ## TODO
-        ## g4media always stores their dates as '1 mai 2023' for example which will be parsed to 00:00 + timestamp
-        ## will need to generate some hours so that they won't always be at the bottom
-        date = get_date(str_date)
+        date = datetime.now()
 
         extracted_article = {
             'id': str(uuid.uuid4()),
@@ -46,7 +41,7 @@ def get_article_grid(parsed_html):
             'article_url': strip_url(article_url),
             'provider_id': 4,
             'date': date,
-            'scrape_date': datetime.now(),
+            'scrape_date': date,
             'picture_url': img_url
         }
 
