@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS Articles (
     article_url TEXT NOT NULL,
     picture_url TEXT NOT NULL, 
     provider_id INT REFERENCES Providers(Id) NOT NULL,
-    UNIQUE (Title, article_url)
+    UNIQUE (article_url)
 );
 
 
