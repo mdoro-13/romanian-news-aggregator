@@ -5,7 +5,7 @@ from utils.image_handler import get_image
 from utils.date_handler import get_date
 from utils import response_handler
 from utils.fetch_below import scrape_limit
-
+from utils.sanitize import strip_url
 
 
 URL = 'https://stirileprotv.ro/ultimele-stiri/'
@@ -31,7 +31,7 @@ def get_articles():
         extracted_article = {
             'id': str(uuid.uuid4()),
             'title': article_title,
-            'article_url': article_url,
+            'article_url': strip_url(article_url),
             'provider_id': 5,
             'date': get_date(date),
             'scrape_date': datetime.now(),
