@@ -15,10 +15,11 @@ const createArticleElement = (article) => {
   const articleUrl = `//${article.articleUrl}`;
   const row = document.createElement('div');
   const providerClass = getProviderClass(article)
+  const placeholderImage = providerClass === 'hotnews' ? 'hotnews.jpg' : 'white.png';
   row.classList.add('grid-item');
   row.innerHTML = `
     <div class="article-box">
-      <div><img class="article-img" src="${article.pictureUrl}" alt="Image not found" onerror="this.src='./assets/white.png';"></div>
+      <div><img class="article-img" src="${article.pictureUrl}" alt="Image not found" onerror="this.src='./assets/${placeholderImage}';"></div>
       <div><a href="${articleUrl}" target="_blank">${truncateTitle(article.title)}</a></div>
     </div>
     <div class="info-box">
