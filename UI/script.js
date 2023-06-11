@@ -1,7 +1,7 @@
 import { fetchArticles } from './http-calls.js';
 import { getProviderClass } from './utils.js';
 
-const truncateTitleBy = 65;
+const truncateTitleBy = 100;
 let articles = [];
 let lastArticleDate = null;
 let stopScroll = false;
@@ -13,14 +13,17 @@ const truncateTitle = (title) => {
 
 const createArticleElement = (article) => {
   const articleUrl = `//${article.articleUrl}`;
-  const row = document.createElement('div');
+  const row = document.createElement('a');
+  row.href = articleUrl;
+  row.target = '_blank';
+  row.classList.add('article-wrapper');
   const providerClass = getProviderClass(article)
   const placeholderImage = providerClass === 'hotnews' ? 'hotnews.jpg' : 'white.png';
   row.classList.add('grid-item');
   row.innerHTML = `
     <div class="article-box">
       <div><img class="article-img" src="${article.pictureUrl}" alt="Image not found" onerror="this.src='./assets/${placeholderImage}';"></div>
-      <div><a href="${articleUrl}" target="_blank">${truncateTitle(article.title)}</a></div>
+      <div>${truncateTitle(article.title)}</div>
     </div>
     <div class="info-box">
       <div class="date-posted">${new Date(article.date).toLocaleDateString('ro-RO', { day: 'numeric', month: 'long', year: 'numeric' })}</div>
