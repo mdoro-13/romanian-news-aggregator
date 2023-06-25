@@ -16,7 +16,8 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-string connectionString = config["ROMANIAN_NEWS_AGGREGATOR_CONNECTION_STRING"];
+string? connectionString = config["ROMANIAN_NEWS_AGGREGATOR_CONNECTION_STRING"] ?? 
+                           throw new InvalidOperationException("No connection string has been configured");
 
 app.MapGet("/news", async (ArticleQueryParams queryParams) =>
 {

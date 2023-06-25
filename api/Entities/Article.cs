@@ -3,6 +3,7 @@ using Api.Repository;
 
 namespace Api.Entities;
 
+#nullable disable
 public class Article
 {
     public Guid Id { get; set; }

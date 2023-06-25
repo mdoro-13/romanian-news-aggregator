@@ -8,10 +8,6 @@ public class ArticleRepository
 {
     private readonly string connectionString;
 
-    public ArticleRepository()
-    {
-    }
-
     public ArticleRepository(string connectionString)
     {
         this.connectionString = connectionString;
@@ -59,9 +55,9 @@ public class ArticleRepository
 
     private static void FilterByProvider(ArticleQueryParams queryParams, NpgsqlCommand command)
     {
-        var providerIdsParameter = string.Join(",", Enumerable.Range(0, queryParams.ProviderIds.Count).Select(i => "@ProviderId" + i));
+        var providerIdsParameter = string.Join(",", Enumerable.Range(0, queryParams.ProviderIds.Count()).Select(i => "@ProviderId" + i));
         command.CommandText += "WHERE a.provider_id IN (" + providerIdsParameter + ") ";
-        for (int i = 0; i < queryParams.ProviderIds.Count; i++)
+        for (int i = 0; i < queryParams.ProviderIds.Count(); i++)
         {
             command.Parameters.AddWithValue("ProviderId" + i, queryParams.ProviderIds.ElementAt(i));
         }

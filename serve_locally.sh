@@ -6,7 +6,6 @@ DOCKER_COMPOSE_FILE="docker-compose-development.yml"
 run_docker_compose() {
   echo "Starting setup..."
   docker compose -f $DOCKER_COMPOSE_FILE up -d
-  echo "Docker-compose is running!"
 }
 
 start_http_server() {
@@ -20,7 +19,6 @@ trap 'stop_docker_compose' INT
 stop_docker_compose() {
   echo "Stopping local setup..."
   docker compose -f $DOCKER_COMPOSE_FILE down
-  echo "Docker-compose stopped!"
   exit 0
 }
 
