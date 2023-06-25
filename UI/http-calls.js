@@ -1,6 +1,5 @@
 export async function fetchArticles(queryConfig) {
   const endpoint = getEndpoint();
-  console.log(`${endpoint}/news`)
   const apiURL = new URL(`${endpoint}/news`);
   apiURL.searchParams.append('keyword', queryConfig.keyword);
   apiURL.searchParams.append('beforeDate', queryConfig.datePosted);
