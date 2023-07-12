@@ -1,11 +1,15 @@
 #!/bin/bash
-set -euo pipefail
+set -eo pipefail
 
 DOCKER_COMPOSE_FILE="docker-compose-development.yml"
 
 run_docker_compose() {
   echo "Starting setup..."
-  docker compose -f $DOCKER_COMPOSE_FILE up -d
+  if [[ $1 == "-build" ]]; then
+    docker compose -f $DOCKER_COMPOSE_FILE up -d --build
+  else
+    docker compose -f $DOCKER_COMPOSE_FILE up -d
+  fi
 }
 
 start_http_server() {
@@ -22,5 +26,10 @@ stop_docker_compose() {
   exit 0
 }
 
-run_docker_compose
+if [[ $1 == "-build" ]]; then
+  run_docker_compose "-build"
+else
+  run_docker_compose
+fi
+
 start_http_server
