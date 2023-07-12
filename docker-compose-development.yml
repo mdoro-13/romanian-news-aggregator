@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: db
+    image: postgres
+    environment:
+      POSTGRES_USER: ${NEWS_DB_USER}
+      POSTGRES_PASSWORD: ${NEWS_DB_PASSWORD}
+      POSTGRES_DB: ${NEWS_DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./Scripts/create_db.sql:/docker-entrypoint-initdb.d/init.sql
+
+  api:
+    container_name: api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "5998:80"
+    environment:
+      ROMANIAN_NEWS_AGGREGATOR_CONNECTION_STRING: ${NEWS_CONNECTION_STRING}
+    depends_on:
+      - db
+
+  scrapers:
+    container_name: scrapers
+    build:
+      context: ./Scrapers
+      dockerfile: Dockerfile
+    environment:
+      NEWS_DB_NAME: ${NEWS_DB_NAME}
+      NEWS_DB_USER: ${NEWS_DB_USER}
+      NEWS_DB_PASSWORD: ${NEWS_DB_PASSWORD}
+      NEWS_DB_HOST: db
+      NEWS_DB_PORT: ${NEWS_DB_PORT}
+    depends_on:
+      - db

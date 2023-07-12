@@ -1,0 +1,121 @@
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  background-color: #1877f2;
+  padding: 10px;
+  gap: 10px;
+  margin-top: 60px;
+}
+
+.grid-item {
+  background-color: #f0f2f5;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 10px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.article-img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+}
+
+.grid-item a {
+  text-decoration: none;
+  color: #264653;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.provider {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.profit-ro {
+  background-color: #000041;
+  color: #FFFFFF;
+}
+
+.hotnews {
+  background-color: #2145ac;
+  color: #FFFFFF;
+}
+
+.digi24 {
+  background-color: #783efc;
+  color: #FFFFFF;
+}
+
+.g4media {
+  background-color: #3464b9;
+  color: #FFFFFF;
+}
+
+.libertatea {
+  background-color: #bf2000;
+  color: #FFFFFF;
+}
+
+.protv {
+  background-color: #5b98c3;
+  color: #FFFFFF;
+}
+
+.date-posted {
+  margin-top: 10px;
+  color: #777777;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.article-box {
+  height: 200px;
+}
+
+.article-wrapper {
+  text-decoration: none;
+  color: #264653;
+  font-size: 14px;
+}
+
+.article-wrapper:hover {
+  background-color: #b5ccfc;
+}
+
+.info-box {
+  height: auto;
+}
+
+.fixed-content {
+  overflow: hidden;
+  position: fixed; 
+  top: 0; 
+  width: 100%; 
+}
+
+@media (max-width: 768px) {
+  .article-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .article-grid {
+    grid-template-columns: 1fr;
+  }
+}
